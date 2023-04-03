@@ -1,0 +1,112 @@
+LIST marketplace_Itens_Ulque = Tomato, Glass, Rice, Leather
+
+VAR Item1_Qt_Ulque = 4
+VAR Item2_Qt_Ulque = 4
+VAR Item3_Qt_Ulque = 3
+VAR Item4_Qt_Ulque = 2
+
+VAR Item1_Price_Ulque = 2
+VAR Item2_Price_Ulque = 2
+VAR Item3_Price_Ulque = 3
+VAR Item4_Price_Ulque = 5
+
+==traveling_Ulque==
+Traveling
+~days += 3
+~weekdays += 3
+->city_center_Ulque
+
+==city_center_Ulque==
+{weekdays}, {months} {days}st of Year {years}
+
+
+City Center
++ [Go to the Marketplace] -> marketplace_Ulque
++ [Go to the City Hall] -> city_hall_Ulque
++ [Check Inventory] -> check_invent
++ [Travel] -> travel_list_Ulque
+
+==marketplace_Ulque==
+{weekdays}, {months} {days}st of Year {years}
+
+
+Marketplace placeholder
+To Buy
+{marketplace_Itens_Ulque(1)} - {Item1_Qt_Ulque} Units - {Item1_Price_Ulque} Coins
+{marketplace_Itens_Ulque(2)} - {Item2_Qt_Ulque} Units - {Item2_Price_Ulque} Coins
+{marketplace_Itens_Ulque(3)} - {Item3_Qt_Ulque} Units - {Item3_Price_Ulque} Coins
+{marketplace_Itens_Ulque(4)} - {Item4_Qt_Ulque} Units - {Item4_Price_Ulque} Coins
+
+You have {money_Player} Coins
+
++ {money_Player >= Item1_Price_Ulque && Item1_Qt_Ulque > 0} [Buy {marketplace_Itens_Ulque(1)}] 
+~Item1_Qt_Ulque -= 1
+~invent_Wheat += 1
+~money_Player -= Item1_Price_Ulque
+->marketplace_Ulque
++ {money_Player >= Item2_Price_Ulque && Item2_Qt_Ulque > 0} [Buy {marketplace_Itens_Ulque(2)}]
+~Item2_Qt_Ulque -= 1
+~invent_Salt += 1
+~money_Player -= Item2_Price_Ulque
+->marketplace_Ulque
++ {money_Player >= Item3_Price_Ulque && Item3_Qt_Ulque > 0} [Buy {marketplace_Itens_Ulque(3)}] 
+~Item3_Qt_Ulque -= 1
+~invent_Pepper += 1
+~money_Player -= Item3_Price_Ulque
+->marketplace_Ulque
++ {money_Player >= Item4_Price_Ulque && Item4_Qt_Ulque > 0} [Buy {marketplace_Itens_Ulque(4)}]
+~Item4_Qt_Ulque -= 1
+~invent_Potato += 1
+~money_Player -= Item4_Price_Ulque
+->marketplace_Ulque
++ [Sell Items] ->sell_Ulque
++ [Leave] ->city_center_Ulque
+
+==sell_Ulque==
+{invent_Wheat > 0}Wheat - Sell for {price_WheatUlque}
+{invent_Salt > 0}Salt - Sell for {price_SaltUlque}
+{invent_Pepper > 0}Pepper - Sell for {price_PepperUlque}
+{invent_Potato > 0}Potato - Sell for {price_PotatoUlque}
+
++{invent_Wheat > 0}[Sell Wheat]
+~invent_Wheat -= 1
+~money_Player += price_WheatUlque
+->sell_Ulque
+
++{invent_Salt > 0}[Sell Salt]
+~invent_Salt -= 1
+~money_Player += price_SaltUlque
+->sell_Ulque
+
++{invent_Pepper > 0}[Sell Pepper]
+~invent_Pepper -= 1
+~money_Player += price_PepperUlque
+->sell_Ulque
+
++{invent_Potato > 0}[Sell Potato]
+~invent_Potato -= 1
+~money_Player += price_PotatoUlque
+->sell_Ulque
+
++[Stop Selling]
+->marketplace_Ulque
+
+->city_center_Ulque
+
+==city_hall_Ulque==
+{weekdays}, {months} {days}st of Year {years}
+
+
+City Hall placeholder
+->city_center_Ulque
+
+
+==travel_list_Ulque==
+{weekdays}, {months} {days}st of Year {years}
+
+
+Traveling placeholder
++ [Go to Forzag] -> traveling_Forzag
++ [Go to Eleden] -> traveling_Eleden
++ [Go to Letach] -> traveling_Letach
++ [Go to Cracya] -> traveling_Cracya

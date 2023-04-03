@@ -1,0 +1,52 @@
+LIST inventory_Itens = Wheat, Salt, Pepper, Potato
+VAR invent_Wheat = 0
+VAR invent_Salt = 0
+VAR invent_Pepper = 0
+VAR invent_Potato = 0
+
+VAR price_WheatForzag = 1
+VAR price_WheatEleden = 5
+VAR price_WheatLetach = 3
+VAR price_WheatUlque = 3
+VAR price_WheatCracya = 2
+
+VAR price_SaltForzag = 2
+VAR price_SaltEleden = 7
+VAR price_SaltUlque = 4
+VAR price_SaltLetach = 2
+VAR price_SaltCracya = 3
+
+VAR price_PepperForzag = 2
+VAR price_PepperEleden = 4
+VAR price_PepperLetach = 2
+VAR price_PepperUlque = 3
+VAR price_PepperCracya = 5
+
+VAR price_PotatoForzag = 3
+VAR price_PotatoEleden = 2
+VAR price_PotatoLetach = 4
+VAR price_PotatoUlque = 4
+VAR price_PotatoCracya = 1
+
+
+VAR player_location = "city_center_Forzag"
+
+VAR money_Player = 20
+
+VAR days = 1
+VAR years = 1
+LIST months = (January), February, March, April, May, June, July, August, September, October, November, December
+LIST weekdays = (Monday), Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+
+
+
+
+==check_invent==
+{invent_Wheat > 0}{inventory_Itens(1)} - {invent_Wheat}
+{invent_Salt > 0}{inventory_Itens(2)} - {invent_Salt}
+{invent_Pepper > 0}{inventory_Itens(3)} - {invent_Pepper}
+{invent_Potato > 0}{inventory_Itens(4)} - {invent_Potato}
+
+You have {money_Player} coins
+->city_center_Forzag
+

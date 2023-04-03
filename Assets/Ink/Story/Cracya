@@ -1,0 +1,112 @@
+LIST marketplace_Itens_Cracya = Sunflower, Oil, Meat, Beans
+
+VAR Item1_Qt_Cracya = 4
+VAR Item2_Qt_Cracya = 4
+VAR Item3_Qt_Cracya = 3
+VAR Item4_Qt_Cracya = 2
+
+VAR Item1_Price_Cracya = 2
+VAR Item2_Price_Cracya = 2
+VAR Item3_Price_Cracya = 3
+VAR Item4_Price_Cracya = 5
+
+==traveling_Cracya==
+Traveling
+~days += 3
+~weekdays += 3
+->city_center_Cracya
+
+==city_center_Cracya==
+{weekdays}, {months} {days}st of Year {years}
+
+
+City Center
++ [Go to the Marketplace] -> marketplace_Cracya
++ [Go to the City Hall] -> city_hall_Cracya
++ [Check Inventory] -> check_invent
++ [Travel] -> travel_list_Cracya
+
+==marketplace_Cracya==
+{weekdays}, {months} {days}st of Year {years}
+
+
+Marketplace placeholder
+To Buy
+{marketplace_Itens_Cracya(1)} - {Item1_Qt_Cracya} Units - {Item1_Price_Cracya} Coins
+{marketplace_Itens_Cracya(2)} - {Item2_Qt_Cracya} Units - {Item2_Price_Cracya} Coins
+{marketplace_Itens_Cracya(3)} - {Item3_Qt_Cracya} Units - {Item3_Price_Cracya} Coins
+{marketplace_Itens_Cracya(4)} - {Item4_Qt_Cracya} Units - {Item4_Price_Cracya} Coins
+
+You have {money_Player} Coins
+
++ {money_Player >= Item1_Price_Cracya && Item1_Qt_Cracya > 0} [Buy {marketplace_Itens_Cracya(1)}] 
+~Item1_Qt_Cracya -= 1
+~invent_Wheat += 1
+~money_Player -= Item1_Price_Cracya
+->marketplace_Cracya
++ {money_Player >= Item2_Price_Cracya && Item2_Qt_Cracya > 0} [Buy {marketplace_Itens_Cracya(2)}]
+~Item2_Qt_Cracya -= 1
+~invent_Salt += 1
+~money_Player -= Item2_Price_Cracya
+->marketplace_Cracya
++ {money_Player >= Item3_Price_Cracya && Item3_Qt_Cracya > 0} [Buy {marketplace_Itens_Cracya(3)}] 
+~Item3_Qt_Cracya -= 1
+~invent_Pepper += 1
+~money_Player -= Item3_Price_Cracya
+->marketplace_Cracya
++ {money_Player >= Item4_Price_Cracya && Item4_Qt_Cracya > 0} [Buy {marketplace_Itens_Cracya(4)}]
+~Item4_Qt_Cracya -= 1
+~invent_Potato += 1
+~money_Player -= Item4_Price_Cracya
+->marketplace_Cracya
++ [Sell Items] ->sell_Cracya
++ [Leave] ->city_center_Cracya
+
+==sell_Cracya==
+{invent_Wheat > 0}Wheat - Sell for {price_WheatCracya}
+{invent_Salt > 0}Salt - Sell for {price_SaltCracya}
+{invent_Pepper > 0}Pepper - Sell for {price_PepperCracya}
+{invent_Potato > 0}Potato - Sell for {price_PotatoCracya}
+
++{invent_Wheat > 0}[Sell Wheat]
+~invent_Wheat -= 1
+~money_Player += price_WheatCracya
+->sell_Cracya
+
++{invent_Salt > 0}[Sell Salt]
+~invent_Salt -= 1
+~money_Player += price_SaltCracya
+->sell_Cracya
+
++{invent_Pepper > 0}[Sell Pepper]
+~invent_Pepper -= 1
+~money_Player += price_PepperCracya
+->sell_Cracya
+
++{invent_Potato > 0}[Sell Potato]
+~invent_Potato -= 1
+~money_Player += price_PotatoCracya
+->sell_Cracya
+
++[Stop Selling]
+->marketplace_Cracya
+
+->city_center_Cracya
+
+==city_hall_Cracya==
+{weekdays}, {months} {days}st of Year {years}
+
+
+City Hall placeholder
+->city_center_Cracya
+
+
+==travel_list_Cracya==
+{weekdays}, {months} {days}st of Year {years}
+
+
+Traveling placeholder
++ [Go to Forzag] -> traveling_Forzag
++ [Go to Eleden] -> traveling_Eleden
++ [Go to Letach] -> traveling_Letach
++ [Go to Ulque] -> traveling_Ulque
